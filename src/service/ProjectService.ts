@@ -42,14 +42,14 @@ export class ProjectService {
     async addUserToProject(userId: number, projectId: number): Promise<void> {
 
         const project = await this.projectRepository.findByIdWithUsers(projectId);
-        const user = await this.userRepository.findById(userId);
+        const user = await this.userRepository.findByIdWithProjects(userId);
 
         if (!project || !user) {
             throw new Error("Projeto ou usuário não encontrado.");
         }
 
         // Verificar se o usuário já está no projeto
-        if (project.users.some((u) => u.id === userId)) {
+        if (project.users.filter((u) => u.id === userId)) {
             throw new Error("Usuário já está no projeto.");
         }
 
@@ -72,11 +72,12 @@ export class ProjectService {
     // Listar usuários de um projeto
     async listUsersInProject(projectId: number): Promise<User[]> {
         const project = await this.projectRepository.findByIdWithUsers(projectId);
-
-        if (!project) {
-            throw new Error("Projeto não encontrado.");
+      
+        if (project) {
+          return project.users;
+        } else {
+          throw new Error("Projeto não encontrado.");
         }
-
-        return project.users;
-    }
+      }
+      
 }
