@@ -34,4 +34,9 @@ export class TaskService {
 
     // ---------------------------------------------------------------------------------------
 
+    // Adicionar comentário à tarefa
+    async addCommentToTask(taskId: number, comment: Comment, userId: number): Promise<void> {
+        // Lógica para verificar se o usuário é responsável pela tarefa
+        // e adicionar o comentário
+    }
 }

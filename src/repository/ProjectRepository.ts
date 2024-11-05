@@ -33,6 +33,14 @@ export class ProjectRepository {
         });
     }
 
+    // Buscar um projeto pelo ID com usuários relacionados
+    async findByIdWithUsers(projectId: number): Promise<Project | null> {
+        return await this.repositorio.findOne({
+            where: { id: projectId },
+            relations: ['users']
+        });
+    }
+
     // Atualiza os dados de projeto
     async update(id: number, project: Partial<Project>): Promise<void> {
         await this.repositorio.update(id, project);

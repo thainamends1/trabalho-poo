@@ -48,4 +48,6 @@ export class UserController {
             return res.status(400).json({ message: 'Erro ao remover usuario.', error: error.message });
         }
     }
+
+    // ------------------------------------------------------------------------
 }
