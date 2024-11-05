@@ -60,7 +60,7 @@ export class UserRepository {
         return await this.repositorio.findOneBy({id: id});
     }
 
-    // ---------------------------------------------------------------------------
+    // -------------------- Relacionamento com o Projetos --------------------------------
 
     // Buscar um usuario pelo ID com projetos relacionados
     async findByIdWithProjects(userId: number): Promise<User | null> {
@@ -69,4 +69,8 @@ export class UserRepository {
             relations: ['projects']
         });
     }
+
+    // -------------------- Relacionamento com a Tarefas ---------------------------------
+
+    // -------------------- Relacionamento com o Comentários -----------------------------
 }

@@ -20,21 +20,21 @@ export class TaskRepository {
     }
 
     // Para listar o relacionamento ONE TO MANY com Comentario
-    public async readTaskComment(): Promise<Task[]> {
+    public async listTaskComment(): Promise<Task[]> {
         return await this.repositorio.find({
             relations: ["comments"],
         });
     }
 
     // Para listar o relacionamento MANY TO ONE com Projeto
-    async readTaskProject(): Promise<Task[]> {
+    async listTaskProject(): Promise<Task[]> {
         return await this.repositorio.find({
             relations: ["project"],
         });
     }
     
     // Para listar o relacionamento MANY TO MANY com Tarefa
-    async readTaskUser(): Promise<Task[]> {
+    async listTaskUser(): Promise<Task[]> {
         return await this.repositorio.find({
             relations: ["users"],
         });
@@ -60,6 +60,9 @@ export class TaskRepository {
         return await this.repositorio.findOneBy({id: id});
     }
 
-    // ---------------------------------------------------------------------------
+    // -------------------- Relacionamento com o Projeto ---------------------------------
 
+    // -------------------- Relacionamento com o Usuários ---------------------------------
+
+    // -------------------- Relacionamento com o Comentários ---------------------------------
 }

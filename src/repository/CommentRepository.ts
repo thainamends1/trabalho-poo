@@ -19,20 +19,6 @@ export class CommentRepository {
         return await this.repositorio.find();
     }
 
-    // Para listar o relacionamento MANY TO ONE com Usuario
-    async readCommentUser(): Promise<Comment[]> {
-        return await this.repositorio.find({
-            relations: ["user"],
-        });
-    }
-
-    // Para listar o relacionamento MANY TO ONE com Tarefa
-    async readCommentTask(): Promise<Comment[]> {
-        return await this.repositorio.find({
-            relations: ["task"],
-        });
-    }
-
     // Atualiza os dados do comentario
     async update(id: number, comment: Partial<Comment>): Promise<void> {
         await this.repositorio.update(id, comment);
@@ -53,6 +39,23 @@ export class CommentRepository {
         return await this.repositorio.findOneBy({id: id});
     }
 
-    // ---------------------------------------------------------------------------
+    // Para listar o relacionamento MANY TO ONE com Usuario
+    async listCommentUser(): Promise<Comment[]> {
+        return await this.repositorio.find({
+            relations: ["user"],
+        });
+    }
 
+    // Para listar o relacionamento MANY TO ONE com Tarefa
+    async listCommentTask(): Promise<Comment[]> {
+        return await this.repositorio.find({
+            relations: ["task"],
+        });
+    }
+
+    // -------------------- Relacionamento com o Usuário ---------------------------------
+
+
+    // -------------------- Relacionamento com a Tarefa ---------------------------------
+    
 }
