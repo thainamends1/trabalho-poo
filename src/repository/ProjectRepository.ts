@@ -20,7 +20,7 @@ export class ProjectRepository {
     }
 
     // Listar projetos
-    async list(): Promise<Project[]> {
+    async read(): Promise<Project[]> {
         return await this.repository.find();
     }
 
