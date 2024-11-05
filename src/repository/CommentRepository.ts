@@ -9,58 +9,58 @@ export class CommentRepository {
         this.repository = banco.getRepository(Comment);
     }
 
-    // Criar um comentario
-    async create(comment: Comment): Promise<Comment> {
-        return await this.repository.save(comment);
-    }
-
-    // Salvar um comentario
     async save(comment: Comment): Promise<Comment> {
         return await this.repository.save(comment);
     }
 
-    // Listar comentarios
-    async read(): Promise<Comment[]> {
+    // Read
+    async findAll(): Promise<Comment[]> {
         return await this.repository.find();
     }
 
-    // Atualiza os dados do comentario
-    async update(id: number, comment: Partial<Comment>): Promise<void> {
-        await this.repository.update(id, comment);
-    }
-
-    // Deleta um comentario do repositório
-    async delete(comment: Comment): Promise<Comment> {
-        return await this.repository.remove(comment);
-    }
-
-    // Busca um comentario no repositório ao ser passado algum atributo
-    async find(comment: Partial<Comment>): Promise<Comment | null> {
-        return await this.repository.findOne({where : comment});
-    }
-    
-    // Busca um comentario no repositório através da PK dele
     async findById(id: number): Promise<Comment> {
         return await this.repository.findOneBy({id: id});
     }
 
+    async find(comment: Partial<Comment>): Promise<Comment | null> {
+        return await this.repository.findOne({where : comment});
+    }
+
+    async update(id: number, comment: Partial<Comment>): Promise<void> {
+        await this.repository.update(id, comment);
+    }
+
+    async delete(comment: Comment): Promise<Comment> {
+        return await this.repository.remove(comment);
+    }
+
+    // -------------------- Relacionamento com o Usuário ---------------------------------
     // Para listar o relacionamento MANY TO ONE com Usuario
-    async listCommentUser(): Promise<Comment[]> {
+    async listCommentsWithUsers(): Promise<Comment[]> {
         return await this.repository.find({
             relations: ["user"],
         });
     }
 
+    async findByIdWithUser(id: number): Promise<Comment | null> {
+        return await this.repository.findOne({
+            where: { id: id },
+            relations: ['user']
+        });
+    }
+
+    // -------------------- Relacionamento com a Tarefa ---------------------------------
     // Para listar o relacionamento MANY TO ONE com Tarefa
-    async listCommentTask(): Promise<Comment[]> {
+    async listCommentsWithTasks(): Promise<Comment[]> {
         return await this.repository.find({
             relations: ["task"],
         });
     }
 
-    // -------------------- Relacionamento com o Usuário ---------------------------------
-
-
-    // -------------------- Relacionamento com a Tarefa ---------------------------------
-    
+    async findByIdWithTask(id: number): Promise<Comment | null> {
+        return await this.repository.findOne({
+            where: { id: id },
+            relations: ['task']
+        });
+    }
 }

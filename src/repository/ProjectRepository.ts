@@ -9,65 +9,59 @@ export class ProjectRepository {
         this.repository = banco.getRepository(Project);
     }
 
-    // Criar um projeto
-    async create(project: Project): Promise<Project> {
-        return await this.repository.save(project);
-    }
-
-    // Salvar um projeto
     async save(project: Project): Promise<Project> {
         return await this.repository.save(project);
     }
 
-    // Listar projetos
-    async read(): Promise<Project[]> {
+    // Read
+    async findAll(): Promise<Project[]> {
         return await this.repository.find();
     }
 
+    async findById(id: number): Promise<Project> {
+        return await this.repository.findOneBy({id: id});
+    }
+
+    async find(project: Partial<Project>): Promise<Project | null> {
+        return await this.repository.findOne({where : project});
+    }
+
+    async update(id: number, project: Partial<Project>): Promise<void> {
+        await this.repository.update(id, project);
+        // return this.findById(id);   // Retorna o objeto atualizado
+    }
+
+    async delete(project: Project): Promise<Project> {
+        return await this.repository.remove(project);
+    }
+
+    // ------------------- Relacionamento com Tarefas --------------------------
     // Para listar o relacionamento ONE TO MANY com Tarefa
-    public async listProjectTask(): Promise<Project[]> {
+    async listProjectsWithTasks(): Promise<Project[]> {
         return await this.repository.find({
             relations: ["tasks"],
         });
     }
 
+    async findByIdWithTasks(id: number): Promise<Project | null> {
+        return await this.repository.findOne({
+            where: { id: id },
+            relations: ['tasks']
+        });
+    }
+
+    // ------------------- Relacionamento com Usuários -------------------------
     // Para listar o relacionamento MANY TO MANY com Usuario
-    async listProjectUser(): Promise<Project[]> {
+    async listProjectsWithUsers(): Promise<Project[]> {
         return await this.repository.find({
             relations: ["users"],
         });
     }
 
-    // Atualiza os dados de projeto
-    async update(id: number, project: Partial<Project>): Promise<void> {
-        await this.repository.update(id, project);
-    }
-
-    // Deleta um projeto do repositório
-    async delete(project: Project): Promise<Project> {
-        return await this.repository.remove(project);
-    }
-
-    // Busca um projeto no repositório ao ser passado algum atributo
-    async find(project: Partial<Project>): Promise<Project | null> {
-        return await this.repository.findOne({where : project});
-    }
-    
-    // Busca um projeto no repositório através da PK dele
-    async findById(id: number): Promise<Project> {
-        return await this.repository.findOneBy({id: id});
-    }
-
-    // ------------------- Relacionamento com Usuários -------------------------
-
-    // Buscar um projeto pelo ID com os usuários relacionados
     async findByIdWithUsers(id: number): Promise<Project | null> {
         return await this.repository.findOne({
             where: { id: id },
             relations: ['users']
         });
     }
-
-    // ------------------- Relacionamento com Tarefas --------------------------
-
 }
