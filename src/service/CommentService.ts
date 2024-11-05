@@ -31,4 +31,9 @@ export class CommentService {
         await this.commentRepository.delete(comment);
         return true;
     }
+
+    // -------------------- Relacionamento com o Usuário ---------------------------------
+
+    // -------------------- Relacionamento com a Tarefa ---------------------------------
+
 }

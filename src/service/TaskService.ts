@@ -32,7 +32,11 @@ export class TaskService {
         return true;
     }
 
-    // ---------------------------------------------------------------------------------------
+    // -------------------- Relacionamento com o Projeto ---------------------------------
+
+    // -------------------- Relacionamento com a Tarefa ---------------------------------
+
+    // -------------------- Relacionamento com o Comentário ---------------------------------
 
     // Adicionar comentário à tarefa
     async addCommentToTask(taskId: number, comment: Comment, userId: number): Promise<void> {

@@ -36,7 +36,7 @@ export class ProjectService {
         return true;
     }
 
-    // ---------------------------------------------------------------------------------------
+    // -------------------- Relacionamento com o Usuário ---------------------------------
     
     // Adicionar um usuário a um projeto
     async addUserToProject(userId: number, projectId: number): Promise<void> {
@@ -49,7 +49,7 @@ export class ProjectService {
         }
 
         // Verificar se o usuário já está no projeto
-        if (project.users.filter((u) => u.id === userId)) {
+        if (project.users.some((u) => u.id === userId)) {
             throw new Error("Usuário já está no projeto.");
         }
 
@@ -79,5 +79,6 @@ export class ProjectService {
           throw new Error("Projeto não encontrado.");
         }
       }
-      
+    
+    // -------------------- Relacionamento com a Tarefa ---------------------------------
 }
