@@ -11,10 +11,10 @@ const port = 3000;
 
 minhaAPI.use(express.json());
 
-minhaAPI.use('/projects', projectRouter);
-minhaAPI.use('/tasks', taskRouter);
-minhaAPI.use('/users', userRouter);
-minhaAPI.use('/comments', commentRouter);
+minhaAPI.use('/project', projectRouter);
+minhaAPI.use('/task', taskRouter);
+minhaAPI.use('/user', userRouter);
+minhaAPI.use('/comment', commentRouter);
 
 
 minhaAPI.listen(port, async () => {

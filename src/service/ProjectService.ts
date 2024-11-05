@@ -38,9 +38,8 @@ export class ProjectService {
 
     // -------------------- Relacionamento com o Usuário ---------------------------------
     
-    // Adicionar um usuário a um projeto
-    async addUserToProject(userId: number, projectId: number): Promise<void> {
-
+    // Adicionar um usuário ao projeto
+    async addUserToProject(projectId: number, userId: number): Promise<void> {
         const project = await this.projectRepository.findByIdWithUsers(projectId);
         const user = await this.userRepository.findByIdWithProjects(userId);
 
@@ -48,17 +47,22 @@ export class ProjectService {
             throw new Error("Projeto ou usuário não encontrado.");
         }
 
-        // Verificar se o usuário já está no projeto
-        if (project.users.some((u) => u.id === userId)) {
+        // Verifica se o usuário já pertence ao projeto
+        const isUserInProject = project.users.some((u) => {
+            u.id === userId;
+        });
+
+        if (isUserInProject) {
             throw new Error("Usuário já está no projeto.");
         }
 
+        // Adiciona e salva, respectivamente, o usuário no projeto
         project.users.push(user);
-        await this.projectRepository.create(project);
+        await this.projectRepository.save(project);
     }
 
      // Remover um usuário de um projeto
-     async removeUserFromProject(userId: number, projectId: number): Promise<void> {
+     async removeUserFromProject(projectId: number, userId: number): Promise<void> {
         const project = await this.projectRepository.findByIdWithUsers(projectId);
 
         if (!project) {
@@ -66,7 +70,7 @@ export class ProjectService {
         }
 
         project.users = project.users.filter((user) => user.id !== userId);
-        await this.projectRepository.create(project);
+        await this.projectRepository.save(project);
     }
 
     // Listar usuários de um projeto

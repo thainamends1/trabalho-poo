@@ -61,9 +61,9 @@ export class ProjectRepository {
     // ------------------- Relacionamento com Usuários -------------------------
 
     // Buscar um projeto pelo ID com os usuários relacionados
-    async findByIdWithUsers(projectId: number): Promise<Project | null> {
+    async findByIdWithUsers(id: number): Promise<Project | null> {
         return await this.repository.findOne({
-            where: { id: projectId },
+            where: { id: id },
             relations: ['users']
         });
     }

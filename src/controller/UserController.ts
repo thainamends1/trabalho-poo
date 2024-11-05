@@ -39,6 +39,16 @@ export class UserController {
         }
     }
 
+    async findById(req: Request, res: Response): Promise<Response> {
+        try {
+            const id: number = parseInt(req.params.id);
+            const user = await this.userService.findOne(id);
+            return res.status(200).json({ message: `Usuario com ID ${id} removido com sucesso.`, user });
+        } catch (error) {
+            return res.status(400).json({ message: 'Usuario nao.', error: error.message });
+        }
+    }
+
     async delete(req: Request, res: Response): Promise<Response> {
         try {
             const id: number = parseInt(req.params.id);
