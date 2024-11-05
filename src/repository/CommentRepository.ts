@@ -52,4 +52,7 @@ export class CommentRepository {
     async findById(id: number): Promise<Comment> {
         return await this.repositorio.findOneBy({id: id});
     }
+
+    // ---------------------------------------------------------------------------
+
 }

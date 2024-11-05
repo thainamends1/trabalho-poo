@@ -1,21 +1,12 @@
 import { User } from "../entity/User";
-import { CommentRepository } from "../repository/CommentRepository";
-import { ProjectRepository } from "../repository/ProjectRepository";
-import { TaskRepository } from "../repository/TaskRepository";
 import { UserRepository } from "../repository/UserRepository";
 
 export class UserService {
 
     private userRepository: UserRepository;
-    private projectRepository: ProjectRepository;
-    // private taskRepository: TaskRepository;
-    // private commentRepository: CommentRepository;
 
     constructor() {
         this.userRepository = new UserRepository();
-        this.projectRepository = new ProjectRepository();
-        // this.taskRepository = new TaskRepository();
-        // this.commentRepository = new CommentRepository();
     }
 
     async create(user: User): Promise<User> {
@@ -42,4 +33,5 @@ export class UserService {
     }
 
     // ---------------------------------------------------------------------------------------
+    
 }

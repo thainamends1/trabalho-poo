@@ -59,4 +59,7 @@ export class TaskRepository {
     async findById(id: number): Promise<Task> {
         return await this.repositorio.findOneBy({id: id});
     }
+
+    // ---------------------------------------------------------------------------
+
 }

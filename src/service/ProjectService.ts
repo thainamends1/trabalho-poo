@@ -34,11 +34,5 @@ export class ProjectService {
 
     
     // ---------------------------------------------------------------------------------------
-
-    // Finalizar projeto
-    async finishProject(projectId: number): Promise<void> {
-        // Verifica se todas as tarefas têm status true
-        // Se sim, finaliza o projeto
-    }
     
 }

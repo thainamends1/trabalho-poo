@@ -52,4 +52,7 @@ export class ProjectRepository {
     async findById(id: number): Promise<Project> {
         return await this.repositorio.findOneBy({id: id});
     }
+
+    // ---------------------------------------------------------------------------
+
 }
