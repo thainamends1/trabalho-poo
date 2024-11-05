@@ -14,6 +14,11 @@ export class UserRepository {
         return await this.repositorio.save(user);
     }
 
+    // Salvar um usuario
+    async save(user: User): Promise<User> {
+        return await this.repositorio.save(user);
+    }
+
     // Listar usuarios
     async read(): Promise<User[]> {
         return await this.repositorio.find();

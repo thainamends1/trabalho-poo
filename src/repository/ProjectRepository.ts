@@ -14,6 +14,11 @@ export class ProjectRepository {
         return await this.repository.save(project);
     }
 
+    // Salvar um projeto
+    async save(project: Project): Promise<Project> {
+        return await this.repository.save(project);
+    }
+
     // Listar projetos
     async list(): Promise<Project[]> {
         return await this.repository.find();

@@ -14,6 +14,11 @@ export class TaskRepository {
         return await this.repositorio.save(task);
     }
 
+    // Salvar uma tarefa
+    async save(task: Task): Promise<Task> {
+        return await this.repositorio.save(task);
+    }
+
     // Listar tarefas
     async read(): Promise<Task[]> {
         return await this.repositorio.find();
