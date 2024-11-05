@@ -11,13 +11,29 @@ export class CommentController {
 
     async create(req: Request, res: Response): Promise<Response> {
         try {
-            const comment: Comment = req.body;
-            const newComment = await this.commentService.create(comment);
+            const { comment, userId, taskId } = req.body;
+            const newComment = await this.commentService.create(comment, userId, taskId);
             return res.status(201).json(newComment);
         } catch (error) {
             return res.status(400).json({ message: 'Erro ao criar comentario.', error: error.message });
         }
     }
+
+    // async create(req: Request, res: Response): Promise<Response> {
+    //     try {
+    //         const { text, userId, taskId } = req.body;  // Extrai text, userId e taskId do body
+    //         const comment = new Comment();
+    //         comment.text = text;
+
+    //         const newComment = await this.commentService.create(comment, userId, taskId);
+    //         if (!newComment) {
+    //             return res.status(403).json({ message: 'Usuário não é responsável pela tarefa e não pode comentar.' });
+    //         }
+    //         return res.status(201).json(newComment);
+    //     } catch (error) {
+    //         return res.status(400).json({ message: 'Erro ao criar comentário.', error: error.message });
+    //     }
+    // }
 
     async read(req: Request, res: Response): Promise<Response> {
         try {

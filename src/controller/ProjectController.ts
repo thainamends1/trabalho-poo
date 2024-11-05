@@ -49,38 +49,17 @@ export class ProjectController {
         }
     }
 
-    // ------------------------------------------------------------------------------
-
-    // Endpoint para adicionar usuário ao projeto
-    async addUserToProject(req: Request, res: Response): Promise<void> {
-        const { userId, projectId } = req.body;
+    async finalizeProject(req: Request, res: Response): Promise<Response> {
         try {
-            await this.projectService.addUserToProject(userId, projectId);
-            res.status(200).send('Usuário adicionado ao projeto com sucesso');
+            const id = parseInt(req.params.id);
+            const success = await this.projectService.finalizeProject(id);
+            if (success) {
+                return res.status(200).json({ message: `Projeto com ID ${id} finalizado com sucesso.` });
+            } else {
+                return res.status(400).json({ message: 'Não é possível finalizar o projeto: todas as tarefas precisam estar completas.' });
+            }
         } catch (error) {
-            res.status(400).send(error.message);
-        }
-    }
-
-    // Endpoint para remover usuário do projeto
-    async removeUserFromProject(req: Request, res: Response): Promise<void> {
-        const { userId, projectId } = req.body;
-        try {
-            await this.projectService.removeUserFromProject(userId, projectId);
-            res.status(200).send('Usuário removido do projeto com sucesso');
-        } catch (error) {
-            res.status(400).send(error.message);
-        }
-    }
-
-    // Endpoint para listar usuários de um projeto
-    async listUsersInProject(req: Request, res: Response): Promise<void> {
-        const { projectId } = req.params;
-        try {
-            const users = await this.projectService.listUsersInProject(parseInt(projectId));
-            res.status(200).json(users);
-        } catch (error) {
-            res.status(400).send(error.message);
+            return res.status(400).json({ message: 'Erro ao finalizar projeto.', error: error.message });
         }
     }
 }
