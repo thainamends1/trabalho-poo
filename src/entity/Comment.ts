@@ -8,7 +8,7 @@ export class Comment implements ITimestamp {
     @PrimaryGeneratedColumn('increment')
     public id: number;
 
-    @Column({ type: 'varchar', length: 250})
+    @Column()
     public text: string;
 
     @CreateDateColumn({ name: 'created_at'})
@@ -20,9 +20,9 @@ export class Comment implements ITimestamp {
     @DeleteDateColumn({ name: 'deleted_at' })
     public deletedAt: Date;
 
-    @ManyToOne(() => User, (user) => user.comments)
+    @ManyToOne(() => User, (user) => user.comments, { onDelete: 'CASCADE' })
     public user: User;
 
-    @ManyToOne(() => Task, (task) => task.comments)
+    @ManyToOne(() => Task, (task) => task.comments, { onDelete: 'CASCADE' })
     public task: Task;
 }

@@ -22,10 +22,10 @@ export class Task implements ITimestamp, IBase {
     @DeleteDateColumn({ name: 'deleted_at' })
     public deletedAt: Date;
     
-    @Column({ type: 'boolean', default: false })
-    public status: boolean;
+    @Column({ type: 'boolean', default: false, name: 'is_completed' })
+    public isCompleted: boolean;
 
-    @ManyToOne(() => Project, (project) => project.tasks)
+    @ManyToOne(() => Project, (project) => project.tasks, { onDelete: 'CASCADE' })
     public project: Project;
 
     @ManyToMany(() => User, (user) => user.tasks)

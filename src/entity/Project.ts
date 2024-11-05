@@ -24,8 +24,8 @@ export class Project implements ITimestamp, IBase {
     @DeleteDateColumn({ name: 'deleted_at' })
     public deletedAt: Date;
 
-    @Column({ type: 'boolean', default: false })
-    public status: boolean;
+    @Column({ type: 'boolean', default: false, name: 'is_completed' })
+    public isCompleted: boolean;
 
     @ManyToMany(() => User, (user) => user.projects)
     @JoinTable({ name: 'project_user' })
