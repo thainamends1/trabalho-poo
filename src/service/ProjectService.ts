@@ -1,24 +1,25 @@
 import { Project } from "../entity/Project";
+import { Task } from "../entity/Task";
 import { User } from "../entity/User";
 import { ProjectRepository } from "../repository/ProjectRepository";
-import { UserRepository } from "../repository/UserRepository";
+import { TaskRepository } from "../repository/TaskRepository";
 
 export class ProjectService {
 
     private projectRepository: ProjectRepository;
-    private userRepository: UserRepository;
+    private taskRepository: TaskRepository;
 
     constructor() {
         this.projectRepository = new ProjectRepository();
-        this.userRepository = new UserRepository();
+        this.taskRepository = new TaskRepository();
     }
 
     async create(project: Project): Promise<Project> {
-        return await this.projectRepository.create(project);
+        return await this.projectRepository.save(project);
     }   
     
     async read(): Promise<Project[]> {
-        return await this.projectRepository.read();
+        return await this.projectRepository.findAll();
     }
 
     async update(id: number, project: Partial<Project>): Promise<void>{
@@ -26,7 +27,7 @@ export class ProjectService {
     }
 
     async delete(id: number): Promise<boolean> {
-        const project = await this.projectRepository.find({ id: id });
+        const project = await this.projectRepository.findById(id);
 
         if (!project) {
             return false;
@@ -36,53 +37,30 @@ export class ProjectService {
         return true;
     }
 
-    // -------------------- Relacionamento com o Usuário ---------------------------------
-    
-    // Adicionar um usuário ao projeto
-    async addUserToProject(projectId: number, userId: number): Promise<void> {
-        const project = await this.projectRepository.findByIdWithUsers(projectId);
-        const user = await this.userRepository.findByIdWithProjects(userId);
-
-        if (!project || !user) {
-            throw new Error("Projeto ou usuário não encontrado.");
-        }
-
-        // Verifica se o usuário já pertence ao projeto
-        const isUserInProject = project.users.some((u) => {
-            u.id === userId;
-        });
-
-        if (isUserInProject) {
-            throw new Error("Usuário já está no projeto.");
-        }
-
-        // Adiciona e salva, respectivamente, o usuário no projeto
-        project.users.push(user);
-        await this.projectRepository.save(project);
-    }
-
-     // Remover um usuário de um projeto
-     async removeUserFromProject(projectId: number, userId: number): Promise<void> {
-        const project = await this.projectRepository.findByIdWithUsers(projectId);
+    async finalizeProject(projectId: number): Promise<boolean> {
+        const project = await this.projectRepository.findByIdWithTasks(projectId);
 
         if (!project) {
             throw new Error("Projeto não encontrado.");
         }
 
-        project.users = project.users.filter((user) => user.id !== userId);
-        await this.projectRepository.save(project);
-    }
+        // Verificar se todas as tarefas estão completas
+        const allTasksComplete = project.tasks.every(task => task.isCompleted);
 
-    // Listar usuários de um projeto
-    async listUsersInProject(projectId: number): Promise<User[]> {
-        const project = await this.projectRepository.findByIdWithUsers(projectId);
-      
-        if (project) {
-          return project.users;
-        } else {
-          throw new Error("Projeto não encontrado.");
+        if (!allTasksComplete) {
+            throw new Error("O projeto não pode ser finalizado pois há tarefas pendentes.");
         }
-      }
+
+        // Atualizar o status do projeto para finalizado
+        project.isCompleted = true;
+        await this.projectRepository.save(project);
+        
+        return true;
+    }
     
     // -------------------- Relacionamento com a Tarefa ---------------------------------
+    async listProjectTasks(projectId: number): Promise<Task[]> {
+        const project = await this.projectRepository.findByIdWithTasks(projectId);
+        return project ? project.tasks : [];
+    }
 }

@@ -66,7 +66,7 @@ export class UserRepository {
         });
     }
 
-    // ------------------- Relacionamento com Comentario --------------------------
+    // ------------------- Relacionamento com Comentarios --------------------------
     // Para listar o relacionamento ONE TO MANY com Comentario
     async listUsersWithComments(): Promise<User[]> {
         return await this.repository.find({
