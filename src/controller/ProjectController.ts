@@ -77,7 +77,7 @@ export class ProjectController {
     async listUsersInProject(req: Request, res: Response): Promise<void> {
         const { projectId } = req.params;
         try {
-            const users = await this.projectService.listUsersInProject(Number(projectId));
+            const users = await this.projectService.listUsersInProject(parseInt(projectId));
             res.status(200).json(users);
         } catch (error) {
             res.status(400).send(error.message);
