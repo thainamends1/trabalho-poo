@@ -64,4 +64,19 @@ export class CommentController {
             return res.status(400).json({ message: 'Erro ao remover comentario.', error: error.message });
         }
     }
+
+    async findById(req: Request, res: Response): Promise<Response> {
+        try {
+            const id = parseInt(req.params.id);
+            const comment = await this.commentService.findById(id);
+
+            if (!comment) {
+                return res.status(404).json({ message: `Comentário com ID ${id} não encontrado.` });
+            }
+
+            return res.status(200).json(comment);
+        } catch (error) {
+            return res.status(400).json({ message: 'Erro ao buscar comentário.', error: error.message });
+        }
+    }
 }

@@ -56,6 +56,14 @@ export class CommentService {
         return true;
     }
 
+    async findById(id: number): Promise<Comment | null> {
+        const comment = await this.commentRepository.findById(id);
+        if (!comment) {
+            throw new Error(`Comentário com ID ${id} não encontrado.`);
+        }
+        return comment;
+    }
+
     // -------------------- Relacionamento com Usuário --------------------------
     // Para listar o relacionamento MANY TO ONE com Usuario
     async listCommentsByUser(userId: number): Promise<Comment[]> {
