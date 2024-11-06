@@ -3,15 +3,18 @@ import { Task } from "../entity/Task";
 import { User } from "../entity/User";
 import { ProjectRepository } from "../repository/ProjectRepository";
 import { TaskRepository } from "../repository/TaskRepository";
+import { UserRepository } from "../repository/UserRepository";
 
 export class ProjectService {
 
     private projectRepository: ProjectRepository;
     private taskRepository: TaskRepository;
+    private userRepository: UserRepository
 
     constructor() {
         this.projectRepository = new ProjectRepository();
         this.taskRepository = new TaskRepository();
+        this.userRepository = new UserRepository();
     }
 
     async create(project: Project): Promise<Project> {
@@ -56,6 +59,26 @@ export class ProjectService {
         await this.projectRepository.save(project);
         
         return true;
+    }
+
+    async addUserToProject(userId: number, projectId: number): Promise<void> {
+        const user = await this.userRepository.findById(userId);
+        const project = await this.projectRepository.findById(projectId);
+    
+        if (!user || !project) {
+            throw new Error('Usuário ou projeto não encontrado.');
+        }
+    
+        // Verifica se o usuário já está vinculado ao projeto
+        const isUserAlreadyInProject = user.projects.some(project => project.id === projectId);
+    
+        if (isUserAlreadyInProject) {
+            throw new Error('Usuário já está vinculado a esse projeto.');
+        }
+    
+        // Caso não esteja, adiciona o usuário ao projeto
+        user.projects.push(project);
+        await this.userRepository.save(user);
     }
     
     // -------------------- Relacionamento com a Tarefa ---------------------------------

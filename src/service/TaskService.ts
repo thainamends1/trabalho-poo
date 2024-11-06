@@ -39,6 +39,18 @@ export class TaskService {
         return true;
     }
 
+    async assignUserToTask(userId: number, taskId: number): Promise<void> {
+        const user = await this.userRepository.findById(userId);
+        const task = await this.taskRepository.findById(taskId);
+    
+        if (!user || !task) {
+            throw new Error('Usuário ou tarefa não encontrado.');
+        }
+    
+        task.users.push(user);
+        await this.taskRepository.save(task);
+    }
+
     // -------------------- Relacionamento com o Projeto ---------------------------------
     // Para listar o relacionamento MANY TO ONE com Projeto
     async listTasksByProject(projectId: number): Promise<Task[]> {

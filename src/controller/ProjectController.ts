@@ -62,4 +62,19 @@ export class ProjectController {
             return res.status(400).json({ message: 'Erro ao finalizar projeto.', error: error.message });
         }
     }
+
+    async addUserToProject(req: Request, res: Response): Promise<Response> {
+        try {
+            const { userId, projectId } = req.body;
+
+            if (!userId || !projectId) {
+                return res.status(400).json({ message: 'Usuário e Projeto são necessários.' });
+            }
+
+            await this.projectService.addUserToProject(userId, projectId);
+            return res.status(200).json({ message: 'Usuário vinculado ao projeto com sucesso.' });
+        } catch (error) {
+            return res.status(400).json({ message: error.message });
+        }
+    }
 }
