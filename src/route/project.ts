@@ -14,8 +14,4 @@ projectRouter.post('/addUser', (req, res) => { projectController.addUserToProjec
 projectRouter.post('/removeUser', (req, res) => { projectController.removeUserFromProject(req, res) });
 projectRouter.get('/:projectId/users', (req, res) => { projectController.listUsersInProject(req, res) });
 
-// projectRouter.post('/:id/user/:userId', (req, res) => projectController.addUserToProject(req, res));
-// projectRouter.delete('/:id/user/:userId', (req, res) => projectController.removeUserFromProject(req, res));
-// projectRouter.get('/:id/users', (req, res) => projectController.listUsersInProject(req, res));
-
 export default projectRouter;
