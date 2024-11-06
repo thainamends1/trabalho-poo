@@ -47,6 +47,8 @@ export class TaskService {
         return task;
     }
 
+
+    // Regra de negócio aqui, será realizado teste de verificação depois
     async assignUserToTask(userId: number, taskId: number): Promise<void> {
         const user = await this.userRepository.findById(userId);
         const task = await this.taskRepository.findById(taskId);

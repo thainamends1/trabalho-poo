@@ -47,6 +47,7 @@ export class UserService {
         }
         return user;
     }
+    
 
     // ------------------- Relacionamento com Projetos --------------------------
     // Para listar o relacionamento MANY TO MANY com Projeto

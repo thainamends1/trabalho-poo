@@ -69,6 +69,8 @@ export class ProjectService {
         return true;
     }
 
+
+    // A partir daqui não importa, será feito verificações para saber se funciona depois
     async addUserToProject(userId: number, projectId: number): Promise<void> {
         const user = await this.userRepository.findById(userId);
         const project = await this.projectRepository.findById(projectId);
