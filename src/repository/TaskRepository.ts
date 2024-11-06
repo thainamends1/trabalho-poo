@@ -34,6 +34,7 @@ export class TaskRepository {
         return await this.repository.remove(task);
     }
 
+    
     // -------------------- Relacionamento com o Projeto ---------------------------------
     // Para listar o relacionamento MANY TO ONE com Projeto
     async listTasksWithProject(): Promise<Task[]> {

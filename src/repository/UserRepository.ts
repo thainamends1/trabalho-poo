@@ -27,12 +27,12 @@ export class UserRepository {
 
     async update(id: number, user: Partial<User>): Promise<void> {
         await this.repository.update(id, user);
-        // return this.findById(id);   // Retorna o objeto atualizado
     }
 
     async delete(user: User): Promise<User> {
         return await this.repository.remove(user);
     }
+    
 
     // ------------------- Relacionamento com Projetos --------------------------
     // Para listar o relacionamento MANY TO MANY com Projeto

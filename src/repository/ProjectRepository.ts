@@ -36,6 +36,7 @@ export class ProjectRepository {
         return await this.repository.remove(project);
     }
 
+    
     // ------------------- Relacionamento com Tarefas --------------------------
     // Para listar o relacionamento ONE TO MANY com Tarefa
     async listProjectsWithTasks(): Promise<Project[]> {

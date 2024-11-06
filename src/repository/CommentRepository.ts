@@ -13,7 +13,6 @@ export class CommentRepository {
         return await this.repository.save(comment);
     }
 
-    // Read
     async findAll(): Promise<Comment[]> {
         return await this.repository.find();
     }
@@ -33,6 +32,7 @@ export class CommentRepository {
     async delete(comment: Comment): Promise<Comment> {
         return await this.repository.remove(comment);
     }
+    
 
     // -------------------- Relacionamento com o Usuário ---------------------------------
     // Para listar o relacionamento MANY TO ONE com Usuario
