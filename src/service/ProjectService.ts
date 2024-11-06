@@ -40,6 +40,14 @@ export class ProjectService {
         return true;
     }
 
+    async findById(id: number): Promise<Project | null> {
+        const project = await this.projectRepository.findById(id);
+        if (!project) {
+            throw new Error(`Projeto com ID ${id} não encontrado.`);
+        }
+        return project;
+    }
+
     async finalizeProject(projectId: number): Promise<boolean> {
         const project = await this.projectRepository.findByIdWithTasks(projectId);
 

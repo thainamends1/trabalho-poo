@@ -39,6 +39,14 @@ export class TaskService {
         return true;
     }
 
+    async findById(id: number): Promise<Task | null> {
+        const task = await this.taskRepository.findById(id);
+        if (!task) {
+            throw new Error(`Tarefa com ID ${id} não encontrada.`);
+        }
+        return task;
+    }
+
     async assignUserToTask(userId: number, taskId: number): Promise<void> {
         const user = await this.userRepository.findById(userId);
         const task = await this.taskRepository.findById(taskId);

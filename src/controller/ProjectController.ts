@@ -49,6 +49,21 @@ export class ProjectController {
         }
     }
 
+    async findById(req: Request, res: Response): Promise<Response> {
+        try {
+            const id = parseInt(req.params.id);
+            const project = await this.projectService.findById(id);
+
+            if (!project) {
+                return res.status(404).json({ message: `Projeto com ID ${id} não encontrado.` });
+            }
+
+            return res.status(200).json(project);
+        } catch (error) {
+            return res.status(400).json({ message: 'Erro ao buscar projeto.', error: error.message });
+        }
+    }
+
     async finalizeProject(req: Request, res: Response): Promise<Response> {
         try {
             const id = parseInt(req.params.id);

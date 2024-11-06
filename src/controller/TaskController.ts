@@ -48,4 +48,19 @@ export class TaskController {
             return res.status(400).json({ message: 'Erro ao remover tarefa.', error: error.message });
         }
     }
+
+    async findById(req: Request, res: Response): Promise<Response> {
+        try {
+            const id = parseInt(req.params.id);
+            const task = await this.taskService.findById(id);
+
+            if (!task) {
+                return res.status(404).json({ message: `Tarefa com ID ${id} não encontrada.` });
+            }
+
+            return res.status(200).json(task);
+        } catch (error) {
+            return res.status(400).json({ message: 'Erro ao buscar tarefa.', error: error.message });
+        }
+    }
 }
