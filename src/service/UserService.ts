@@ -40,6 +40,14 @@ export class UserService {
         return true;
     }
 
+    async findById(id: number): Promise<User | null> {
+        const user = await this.userRepository.findById(id);
+        if (!user) {
+            throw new Error(`Usuário com ID ${id} não encontrado.`);
+        }
+        return user;
+    }
+
     // ------------------- Relacionamento com Projetos --------------------------
     // Para listar o relacionamento MANY TO MANY com Projeto
     async listUserProjects(userId: number): Promise<Project[]> {
