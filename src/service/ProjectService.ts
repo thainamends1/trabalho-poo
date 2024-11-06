@@ -80,6 +80,30 @@ export class ProjectService {
         user.projects.push(project);
         await this.userRepository.save(user);
     }
+
+    async removeUserFromProject(userId: number, projectId: number): Promise<void> {
+        const user = await this.userRepository.findById(userId);
+        const project = await this.projectRepository.findById(projectId);
+    
+        if (!user || !project) {
+            throw new Error('Usuário ou projeto não encontrado.');
+        }
+    
+        // Verifica se o usuário está vinculado ao projeto
+        const userIndex = user.projects.findIndex(p => p.id === projectId);
+    
+        if (userIndex === -1) {
+            throw new Error('Usuário não está vinculado a esse projeto.');
+        }
+    
+        // Remove o usuário do projeto
+        user.projects.splice(userIndex, 1);
+        await this.userRepository.save(user);
+    }
+
+    async listUsersInProject(projectId: number): Promise<User[]> {
+        return await this.projectRepository.listUsersWithProjects(projectId);
+    }
     
     // -------------------- Relacionamento com a Tarefa ---------------------------------
     async listProjectTasks(projectId: number): Promise<Task[]> {

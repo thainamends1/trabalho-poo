@@ -1,6 +1,7 @@
 import { Repository } from 'typeorm';
 import { banco } from '../../banco';
 import { Project } from '../entity/Project';
+import { User } from '../entity/User';
 
 export class ProjectRepository {
     private repository: Repository<Project>;
@@ -52,10 +53,23 @@ export class ProjectRepository {
 
     // ------------------- Relacionamento com Usuários -------------------------
     // Para listar o relacionamento MANY TO MANY com Usuario
-    async listProjectsWithUsers(): Promise<Project[]> {
-        return await this.repository.find({
-            relations: ["users"],
+    // async listProjectsWithUsers(): Promise<Project[]> {
+    //     return await this.repository.find({
+    //         relations: ["users"],
+    //     });
+    // }
+
+    async listUsersWithProjects(projectId: number): Promise<User[]> {
+        const project = await this.repository.findOne({
+            where: { id: projectId },
+            relations: ['users'],  // Esse campo é onde o TypeORM vai buscar os usuários relacionados
         });
+    
+        if (!project) {
+            throw new Error('Projeto não encontrado.');
+        }
+    
+        return project.users;  // Aqui, estamos retornando a lista de usuários do projeto
     }
 
     async findByIdWithUsers(id: number): Promise<Project | null> {
