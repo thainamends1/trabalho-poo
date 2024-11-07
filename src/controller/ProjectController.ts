@@ -75,13 +75,14 @@ export class ProjectController {
         try {
             const id = parseInt(req.params.id);
             const success = await this.projectService.finalizeProject(id);
+            
             if (success) {
                 return res.status(200).json({ message: `Projeto com ID ${id} finalizado com sucesso.` });
             } else {
                 return res.status(400).json({ message: 'Erro ao finalizar projeto: todas as tarefas precisam estar completas.' });
             }
         } catch (error) {
-            return res.status(400).json({ message: 'Erro ao finalizar projeto.', error: error.message });
+            return res.status(500).json({ message: 'Erro ao finalizar projeto.', error: error.message });
         }
     }
 }

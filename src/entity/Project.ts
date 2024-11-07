@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, OneToMany, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, JoinTable } from "typeorm"
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, OneToMany, CreateDateColumn, UpdateDateColumn } from "typeorm"
 import { User } from "./User";
 import { Task } from "./Task";
 import { ITimestamp } from "../interfaces/ITimestamp";
@@ -20,16 +20,13 @@ export class Project implements ITimestamp, IBase {
     
     @UpdateDateColumn({ name: 'updated_at' })
     public updatedAt: Date;
-    
-    @DeleteDateColumn({ name: 'deleted_at' })
-    public deletedAt: Date;
 
     @Column({ type: 'boolean', default: false, name: 'is_completed' })
     public isCompleted: boolean;
 
-    @ManyToMany(() => User, (user) => user.projects)
+    @ManyToMany(() => User, (user) => user.projects, { eager: true })
     public users: User[];
 
-    @OneToMany(() => Task, (task) => task.project)
+    @OneToMany(() => Task, (task) => task.project, { eager: true })
     public tasks: Task[];
 }

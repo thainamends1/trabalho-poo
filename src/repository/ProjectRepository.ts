@@ -37,7 +37,7 @@ export class ProjectRepository {
     async findProjectWithTasks(id: number): Promise<Project | null> {
         return await this.repository.findOne({
             where: { id: id },
-            relations: ['tasks']
+            relations: ['tasks'], // Carrega as tarefas do projeto
         });
     }
 }

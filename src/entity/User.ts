@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Project } from "./Project";
 import { Task } from "./Task";
 import { ITimestamp } from "../interfaces/ITimestamp";
@@ -19,11 +19,8 @@ export class User implements ITimestamp {
     
     @UpdateDateColumn({ name: 'updated_at' })
     updatedAt: Date;
-    
-    @DeleteDateColumn({ name: 'deleted_at' })
-    deletedAt: Date;
 
-    @ManyToMany(() => Project, (project) => project.users, { eager: true })
+    @ManyToMany(() => Project, (project) => project.users)
     @JoinTable({ name: 'user_project' })
     public projects: Project[];
 
