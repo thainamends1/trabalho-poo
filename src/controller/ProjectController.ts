@@ -9,6 +9,17 @@ export class ProjectController {
         this.projectService = new ProjectService();
     }
 
+    //  Lista todos os projetos
+    async list(req: Request, res: Response): Promise<Response> {
+        try {
+            const projects = await this.projectService.list();
+            return res.status(200).json(projects);
+        } catch (error) {
+            return res.status(500).json({ message: 'Erro ao listar projetos.', error: error.message });
+        }
+    }
+
+    //  Cria novo projeto
     async create(req: Request, res: Response): Promise<Response> {
         try {
             const project: Project = req.body;
@@ -19,15 +30,7 @@ export class ProjectController {
         }
     }
 
-    async read(req: Request, res: Response): Promise<Response> {
-        try {
-            const projects = await this.projectService.read();
-            return res.status(200).json(projects);
-        } catch (error) {
-            return res.status(500).json({ message: 'Erro ao listar projetos.', error: error.message });
-        }
-    }
-
+    // Atualiza um projeto existente
     async update(req: Request, res: Response): Promise<Response> {
         try {
             const id = parseInt(req.params.id);
@@ -39,6 +42,7 @@ export class ProjectController {
         }
     }
 
+    // Deleta um projeto
     async delete(req: Request, res: Response): Promise<Response> {
         try {
             const id: number = parseInt(req.params.id);
@@ -49,6 +53,7 @@ export class ProjectController {
         }
     }
 
+    // Pesquisa por um projeto através da sua PK
     async findById(req: Request, res: Response): Promise<Response> {
         try {
             const id = parseInt(req.params.id);
@@ -64,6 +69,8 @@ export class ProjectController {
         }
     }
 
+    // Método para verificar a regra de negócio:
+    // -> um projeto só pode ser finalizado se possuir TODAS as suas tarefas vinculadas concluídas.
     async finalizeProject(req: Request, res: Response): Promise<Response> {
         try {
             const id = parseInt(req.params.id);
@@ -71,7 +78,7 @@ export class ProjectController {
             if (success) {
                 return res.status(200).json({ message: `Projeto com ID ${id} finalizado com sucesso.` });
             } else {
-                return res.status(400).json({ message: 'Não é possível finalizar o projeto: todas as tarefas precisam estar completas.' });
+                return res.status(400).json({ message: 'Erro ao finalizar projeto: todas as tarefas precisam estar completas.' });
             }
         } catch (error) {
             return res.status(400).json({ message: 'Erro ao finalizar projeto.', error: error.message });

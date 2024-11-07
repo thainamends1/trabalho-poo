@@ -9,18 +9,22 @@ export class ProjectService {
         this.projectRepository = new ProjectRepository();
     }
 
-    async create(project: Project): Promise<Project> {
-        return await this.projectRepository.save(project);
-    }   
-    
-    async read(): Promise<Project[]> {
+    //  Lista todos os projetos
+    async list(): Promise<Project[]> {
         return await this.projectRepository.findAll();
     }
 
+    //  Cria novo projeto
+    async create(project: Project): Promise<Project> {
+        return await this.projectRepository.save(project);
+    }
+
+    // Atualiza um projeto existente
     async update(id: number, project: Partial<Project>): Promise<void>{
         await this.projectRepository.update(id, project);
     }
 
+    // Deleta um projeto
     async delete(id: number): Promise<boolean> {
         const project = await this.projectRepository.findById(id);
 
@@ -32,6 +36,7 @@ export class ProjectService {
         return true;
     }
 
+    // Pesquisa por um projeto através da sua PK
     async findById(id: number): Promise<Project | null> {
         const project = await this.projectRepository.findById(id);
         if (!project) {
@@ -40,6 +45,8 @@ export class ProjectService {
         return project;
     }
 
+    // Método para verificar a regra de negócio:
+    // -> um projeto só pode ser finalizado se possuir TODAS as suas tarefas vinculadas concluídas.
     async finalizeProject(projectId: number): Promise<boolean> {
         const project = await this.projectRepository.findByIdWithTasks(projectId);
 

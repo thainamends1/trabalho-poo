@@ -27,6 +27,6 @@ export class Task implements ITimestamp, IBase {
     @ManyToMany(() => User, (user) => user.tasks)
     public users: User[];
 
-    @ManyToOne(() => Project, (project) => project.tasks, { onDelete: 'CASCADE' })
+    @ManyToOne(() => Project, (project) => project.tasks, { eager: true })
     public project: Project;
 }
