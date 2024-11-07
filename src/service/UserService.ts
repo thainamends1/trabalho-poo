@@ -56,8 +56,4 @@ export class UserService {
         const user = await this.userRepository.findByIdWithTasks(userId);
         return user ? user.tasks : [];
     }
-
-    // ------------------- Relacionamento com Comentarios --------------------------
-    // Para listar o relacionamento ONE TO MANY com Comentario
-
 }

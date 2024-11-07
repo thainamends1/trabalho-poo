@@ -1,7 +1,6 @@
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Project } from "./Project";
 import { Task } from "./Task";
-import { Comment } from "./Comment";
 import { ITimestamp } from "../interfaces/ITimestamp";
 
 @Entity()
@@ -30,7 +29,4 @@ export class User implements ITimestamp {
     @ManyToMany(() => Task, (task) => task.users, { eager: true })
     @JoinTable({ name: 'user_task' })
     public tasks: Task[];
-
-    @OneToMany(() => Comment, (comment) => comment.user, { eager: true })
-    public comments: Comment[];
 }

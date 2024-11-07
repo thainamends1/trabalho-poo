@@ -65,20 +65,4 @@ export class UserRepository {
             relations: ['tasks']
         });
     }
-
-    // ------------------- Relacionamento com Comentarios --------------------------
-    // Para listar o relacionamento ONE TO MANY com Comentario
-    async listUsersWithComments(): Promise<User[]> {
-        return await this.repository.find({
-            relations: ["comments"],
-        });
-    }
-
-    // Buscar um usuario pelo ID com os comentarios relacionados
-    async findByIdWithComments(id: number): Promise<User | null> {
-        return await this.repository.findOne({
-            where: { id: id },
-            relations: ['comments']
-        });
-    }
 }

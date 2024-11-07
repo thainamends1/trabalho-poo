@@ -2,7 +2,6 @@ import { DataSource } from "typeorm";
 import { Project } from "./src/entity/Project";
 import { User } from "./src/entity/User";
 import { Task } from "./src/entity/Task";
-import { Comment } from "./src/entity/Comment";
 
 export const banco = new DataSource({
     type: "mysql",
@@ -13,7 +12,7 @@ export const banco = new DataSource({
     database: "manager",
     synchronize: true,
     logging: true,
-    entities: [Project, User, Task, Comment],
+    entities: [Project, User, Task],
     subscribers: [],
     migrations: [],
 });

@@ -1,6 +1,5 @@
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { User } from "./User";
-import { Comment } from "./Comment";
 import { Project } from "./Project";
 import { ITimestamp } from "../interfaces/ITimestamp";
 import { IBase } from "../interfaces/IBase";
@@ -30,7 +29,4 @@ export class Task implements ITimestamp, IBase {
 
     @ManyToMany(() => User, (user) => user.tasks)
     public users: User[];
-
-    @OneToMany(() => Comment, (comment) => comment.task)
-    public comments: Comment[];
 }

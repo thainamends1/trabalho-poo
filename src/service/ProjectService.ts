@@ -1,20 +1,12 @@
 import { Project } from "../entity/Project";
-import { Task } from "../entity/Task";
-import { User } from "../entity/User";
 import { ProjectRepository } from "../repository/ProjectRepository";
-import { TaskRepository } from "../repository/TaskRepository";
-import { UserRepository } from "../repository/UserRepository";
 
 export class ProjectService {
 
     private projectRepository: ProjectRepository;
-    private taskRepository: TaskRepository;
-    private userRepository: UserRepository
 
     constructor() {
         this.projectRepository = new ProjectRepository();
-        this.taskRepository = new TaskRepository();
-        this.userRepository = new UserRepository();
     }
 
     async create(project: Project): Promise<Project> {
@@ -68,5 +60,4 @@ export class ProjectService {
         
         return true;
     }
-
 }

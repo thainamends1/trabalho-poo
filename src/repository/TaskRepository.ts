@@ -13,7 +13,6 @@ export class TaskRepository {
         return await this.repository.save(task);
     }
 
-    // Read
     async findAll(): Promise<Task[]> {
         return await this.repository.find();
     }
@@ -63,22 +62,6 @@ export class TaskRepository {
         return await this.repository.findOne({
             where: { id: id },
             relations: ['users']
-        });
-    }
-
-    // -------------------- Relacionamento com o Comentários ---------------------------------
-    // Para listar o relacionamento ONE TO MANY com Comentario
-    async listTasksWithComments(): Promise<Task[]> {
-        return await this.repository.find({
-            relations: ["comments"],
-        });
-    }
-
-    // Buscar uma tarefa pelo ID com os comentarios relacionados
-    async findByIdWithComments(id: number): Promise<Task | null> {
-        return await this.repository.findOne({
-            where: { id: id },
-            relations: ['comments']
         });
     }
 }

@@ -14,7 +14,6 @@ export class ProjectRepository {
         return await this.repository.save(project);
     }
 
-    // Read
     async findAll(): Promise<Project[]> {
         return await this.repository.find();
     }
@@ -54,12 +53,6 @@ export class ProjectRepository {
 
     // ------------------- Relacionamento com Usuários -------------------------
     // Para listar o relacionamento MANY TO MANY com Usuario
-    // async listProjectsWithUsers(): Promise<Project[]> {
-    //     return await this.repository.find({
-    //         relations: ["users"],
-    //     });
-    // }
-
     async listUsersWithProjects(projectId: number): Promise<User[]> {
         const project = await this.repository.findOne({
             where: { id: projectId },

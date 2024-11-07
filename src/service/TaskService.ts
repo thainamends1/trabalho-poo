@@ -2,17 +2,14 @@ import { Task } from "../entity/Task";
 import { User } from "../entity/User";
 import { ProjectRepository } from "../repository/ProjectRepository";
 import { TaskRepository } from "../repository/TaskRepository";
-import { UserRepository } from "../repository/UserRepository";
 
 export class TaskService {
 
     private taskRepository: TaskRepository;
-    private userRepository: UserRepository;
     private projectRepository: ProjectRepository;
 
     constructor() {
         this.taskRepository = new TaskRepository();
-        this.userRepository = new UserRepository();
         this.projectRepository = new ProjectRepository();
     }
 
@@ -46,28 +43,6 @@ export class TaskService {
         }
         return task;
     }
-
-
-    // // Regra de negócio aqui, será realizado teste de verificação depois
-    // async assignTaskToUser(taskId: number, userId: number): Promise<void> {
-    //     // Busca o usuário e a tarefa
-    //     const user = await this.userRepository.findOne({
-    //         where: { id: userId }, 
-    //         relations: ['tasks']
-    //     });
-
-    //     const task = await this.taskRepository.findOne({
-    //         where: { id: taskId },
-    //         relations: ['users']
-    //     });
-
-    //     if (!user) throw new Error('Usuário não encontrado.');
-    //     if (!task) throw new Error('Tarefa não encontrada.');
-
-    //     // Adiciona a tarefa ao usuário e salva
-    //     user.tasks.push(task);
-    //     await this.userRepository.save(user);
-    // }
 
     // -------------------- Relacionamento com o Projeto ---------------------------------
     // Para listar o relacionamento MANY TO ONE com Projeto
