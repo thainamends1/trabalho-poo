@@ -13,7 +13,7 @@ export class UserService {
         return await this.userRepository.save(user);
     }
     
-    async read(): Promise<User[]> {
+    async list(): Promise<User[]> {
         return await this.userRepository.findAll();
     }
 

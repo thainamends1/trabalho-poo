@@ -16,7 +16,7 @@ export class TaskService {
         return await this.taskRepository.save(task);
     }   
     
-    async read(): Promise<Task[]> {
+    async list(): Promise<Task[]> {
         return await this.taskRepository.findAll();
     }
 

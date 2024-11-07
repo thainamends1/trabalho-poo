@@ -19,9 +19,9 @@ export class TaskController {
         }
     }
 
-    async read(req: Request, res: Response): Promise<Response> {
+    async list(req: Request, res: Response): Promise<Response> {
         try {
-            const tasks = await this.taskService.read();
+            const tasks = await this.taskService.list();
             return res.status(200).json(tasks);
         } catch (error) {
             return res.status(500).json({ message: 'Erro ao listar tarefas.', error: error.message });
