@@ -10,7 +10,7 @@ export class User implements ITimestamp {
     public id: number;
 
     @Column({ type: 'varchar', length: 100 })
-    public nome: string;
+    public name: string;
 
     @Column({ type: 'varchar', length: 100, unique: true })
     public email: string;
