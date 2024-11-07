@@ -28,9 +28,10 @@ export class Project implements ITimestamp, IBase {
     public isCompleted: boolean;
 
     @ManyToMany(() => User, (user) => user.projects)
-    @JoinTable({ name: 'project_user' })
     public users: User[];
 
-    @OneToMany(() => Task, (task) => task.project, { eager: true })
+    @OneToMany(() => Task, (task) => task.project)
     public tasks: Task[];
 }
+
+// { onDelete: 'CASCADE' }

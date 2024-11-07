@@ -24,9 +24,9 @@ export class Task implements ITimestamp, IBase {
     @Column({ type: 'boolean', default: false, name: 'is_completed' })
     public isCompleted: boolean;
 
-    @ManyToOne(() => Project, (project) => project.tasks, { onDelete: 'CASCADE' })
-    public project: Project;
-
     @ManyToMany(() => User, (user) => user.tasks)
     public users: User[];
+
+    @ManyToOne(() => Project, (project) => project.tasks, { onDelete: 'CASCADE' })
+    public project: Project;
 }

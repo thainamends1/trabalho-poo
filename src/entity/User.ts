@@ -24,6 +24,7 @@ export class User implements ITimestamp {
     deletedAt: Date;
 
     @ManyToMany(() => Project, (project) => project.users, { eager: true })
+    @JoinTable({ name: 'user_project' })
     public projects: Project[];
 
     @ManyToMany(() => Task, (task) => task.users, { eager: true })

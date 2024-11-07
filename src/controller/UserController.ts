@@ -55,7 +55,7 @@ export class UserController {
             const user = await this.userService.findById(id);
 
             if (!user) {
-                return res.status(404).json({ message: `Usuário com ID ${id} não encontrado.` });
+                return res.status(404).json({ message: `Usuario com ID ${id} não encontrado.` });
             }
 
             return res.status(200).json(user);
