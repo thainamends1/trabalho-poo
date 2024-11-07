@@ -11,6 +11,6 @@ projectRouter.post('/', (req, res) => { projectController.create(req,res) });
 projectRouter.put('/:id', (req, res) => { projectController.update(req,res) });
 projectRouter.delete('/:id', (req, res) => { projectController.delete(req,res) });
 
-// projectRouter.put('/:id/finalize', (req, res) => { projectController.finalizeProject(req, res) });
+projectRouter.put('/:id/finalize', (req, res) => { projectController.finalizeProject(req, res) });
 
 export default projectRouter;

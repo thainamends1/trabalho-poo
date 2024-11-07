@@ -33,5 +33,3 @@ export class Project implements ITimestamp, IBase {
     @OneToMany(() => Task, (task) => task.project)
     public tasks: Task[];
 }
-
-// { onDelete: 'CASCADE' }
