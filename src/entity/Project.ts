@@ -31,6 +31,6 @@ export class Project implements ITimestamp, IBase {
     @JoinTable({ name: 'project_user' })
     public users: User[];
 
-    @OneToMany(() => Task, (task) => task.project)
+    @OneToMany(() => Task, (task) => task.project, { eager: true })
     public tasks: Task[];
 }

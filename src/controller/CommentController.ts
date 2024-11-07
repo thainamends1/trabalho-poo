@@ -19,6 +19,18 @@ export class CommentController {
         }
     }
 
+    // Método para criar um comentário vinculado a um usuário e uma tarefa
+    async createComment(req: Request, res: Response): Promise<Response> {
+        const { userId, taskId, text } = req.body;
+
+        try {
+            const comment = await this.commentService.createWithUserAndTask(userId, taskId, text);
+            return res.status(201).json(comment);
+        } catch (error) {
+            return res.status(400).json({ message: error.message });
+        }
+    }
+
     async read(req: Request, res: Response): Promise<Response> {
         try {
             const comments = await this.commentService.read();

@@ -1,20 +1,14 @@
 import { Project } from "../entity/Project";
 import { Task } from "../entity/Task";
 import { User } from "../entity/User";
-import { ProjectRepository } from "../repository/ProjectRepository";
-import { TaskRepository } from "../repository/TaskRepository";
 import { UserRepository } from "../repository/UserRepository";
 
 export class UserService {
 
     private userRepository: UserRepository;
-    private projectRepository: ProjectRepository;
-    private taskRepository: TaskRepository;
 
     constructor() {
         this.userRepository = new UserRepository();
-        this.projectRepository = new ProjectRepository();
-        this.taskRepository = new TaskRepository();
     }
 
     async create(user: User): Promise<User> {

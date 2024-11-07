@@ -48,18 +48,26 @@ export class TaskService {
     }
 
 
-    // Regra de negócio aqui, será realizado teste de verificação depois
-    async assignUserToTask(userId: number, taskId: number): Promise<void> {
-        const user = await this.userRepository.findById(userId);
-        const task = await this.taskRepository.findById(taskId);
-    
-        if (!user || !task) {
-            throw new Error('Usuário ou tarefa não encontrado.');
-        }
-    
-        task.users.push(user);
-        await this.taskRepository.save(task);
-    }
+    // // Regra de negócio aqui, será realizado teste de verificação depois
+    // async assignTaskToUser(taskId: number, userId: number): Promise<void> {
+    //     // Busca o usuário e a tarefa
+    //     const user = await this.userRepository.findOne({
+    //         where: { id: userId }, 
+    //         relations: ['tasks']
+    //     });
+
+    //     const task = await this.taskRepository.findOne({
+    //         where: { id: taskId },
+    //         relations: ['users']
+    //     });
+
+    //     if (!user) throw new Error('Usuário não encontrado.');
+    //     if (!task) throw new Error('Tarefa não encontrada.');
+
+    //     // Adiciona a tarefa ao usuário e salva
+    //     user.tasks.push(task);
+    //     await this.userRepository.save(user);
+    // }
 
     // -------------------- Relacionamento com o Projeto ---------------------------------
     // Para listar o relacionamento MANY TO ONE com Projeto

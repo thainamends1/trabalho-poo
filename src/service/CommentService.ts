@@ -36,6 +36,11 @@ export class CommentService {
         
         return await this.commentRepository.save(comment);
     }
+
+    // Método para criar um comentário vinculado a um usuário e uma tarefa
+    async createWithUserAndTask(userId: number, taskId: number, text: string): Promise<Comment> {
+        return await this.commentRepository.saveWithUserAndTask(userId, taskId, text);
+    }
     
     async read(): Promise<Comment[]> {
         return await this.commentRepository.findAll();
@@ -62,22 +67,5 @@ export class CommentService {
             throw new Error(`Comentário com ID ${id} não encontrado.`);
         }
         return comment;
-    }
-    
-
-    // -------------------- Relacionamento com Usuário --------------------------
-    // Para listar o relacionamento MANY TO ONE com Usuario
-    async listCommentsByUser(userId: number): Promise<Comment[]> {
-        return await this.commentRepository.listCommentsWithUsers().then(comments => 
-            comments.filter(comment => comment.user.id === userId)
-        );
-    }
-
-    // -------------------- Relacionamento com Tarefa --------------------------
-    // Para listar o relacionamento MANY TO ONE com Tarefa
-    async listCommentsByTask(taskId: number): Promise<Comment[]> {
-        return await this.commentRepository.listCommentsWithTasks().then(comments => 
-            comments.filter(comment => comment.task.id === taskId)
-        );
     }
 }

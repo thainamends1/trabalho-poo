@@ -24,13 +24,13 @@ export class User implements ITimestamp {
     @DeleteDateColumn({ name: 'deleted_at' })
     deletedAt: Date;
 
-    @ManyToMany(() => Project, (project) => project.users)
+    @ManyToMany(() => Project, (project) => project.users, { eager: true })
     public projects: Project[];
 
-    @ManyToMany(() => Task, (task) => task.users)
+    @ManyToMany(() => Task, (task) => task.users, { eager: true })
     @JoinTable({ name: 'user_task' })
     public tasks: Task[];
 
-    @OneToMany(() => Comment, (comment) => comment.user)
+    @OneToMany(() => Comment, (comment) => comment.user, { eager: true })
     public comments: Comment[];
 }
