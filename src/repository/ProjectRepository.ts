@@ -34,10 +34,24 @@ export class ProjectRepository {
     }
 
     // ------------------- Relacionamento com Tarefas --------------------------
-    async findProjectWithTasks(id: number): Promise<Project | null> {
+    async findProjectWithTasks(projectId: number): Promise<Project | null> {
         return await this.repository.findOne({
-            where: { id: id },
+            where: { id: projectId },
             relations: ['tasks'], // Carrega as tarefas do projeto
+        });
+    }
+
+    // async findProjectWithUsersAndTasks(projectId: number): Promise<Project | null> {
+    //     return await this.repository.findOne({
+    //         where: { id: projectId },
+    //         relations: ['users'],  // Carregar apenas usuários, sem suas tarefas
+    //     });
+    // }
+
+    async findProjectWithUsersAndTasks(projectId: number): Promise<Project | null> {
+        return await this.repository.findOne({
+            where: { id: projectId },
+            relations: ['users', 'users.tasks'],  // Carregar usuários e as tarefas atribuídas a eles
         });
     }
 }

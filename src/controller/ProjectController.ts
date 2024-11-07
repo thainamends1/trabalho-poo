@@ -73,16 +73,15 @@ export class ProjectController {
     // -> um projeto só pode ser finalizado se possuir TODAS as suas tarefas vinculadas concluídas.
     async finalizeProject(req: Request, res: Response): Promise<Response> {
         try {
-            const id = parseInt(req.params.id);
-            const success = await this.projectService.finalizeProject(id);
+            const projectId = parseInt(req.params.id);
+            
+            const success = await this.projectService.finalizeProject(projectId);
             
             if (success) {
-                return res.status(200).json({ message: `Projeto com ID ${id} finalizado com sucesso.` });
-            } else {
-                return res.status(400).json({ message: 'Erro ao finalizar projeto: todas as tarefas precisam estar completas.' });
+                return res.status(200).json({ message: `Projeto com ID ${projectId} finalizado com sucesso.` });
             }
         } catch (error) {
-            return res.status(500).json({ message: 'Erro ao finalizar projeto.', error: error.message });
+            return res.status(400).json({ message: error.message });
         }
     }
 }

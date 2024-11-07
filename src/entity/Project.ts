@@ -27,6 +27,6 @@ export class Project implements ITimestamp, IBase {
     @ManyToMany(() => User, (user) => user.projects, { eager: true })
     public users: User[];
 
-    @OneToMany(() => Task, (task) => task.project, { eager: true })
+    @OneToMany(() => Task, (task) => task.project)
     public tasks: Task[];
 }
