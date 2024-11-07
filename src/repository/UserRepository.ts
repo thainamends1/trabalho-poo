@@ -32,37 +32,4 @@ export class UserRepository {
     async delete(user: User): Promise<User> {
         return await this.repository.remove(user);
     }
-    
-
-    // ------------------- Relacionamento com Projetos --------------------------
-    // Para listar o relacionamento MANY TO MANY com Projeto
-    async listUsersWithProjects(): Promise<User[]> {
-        return await this.repository.find({
-            relations: ["projects"],
-        });
-    }
-
-    // Buscar um usuario pelo ID com projetos relacionados
-    async findByIdWithProjects(id: number): Promise<User | null> {
-        return await this.repository.findOne({
-            where: { id: id },
-            relations: ['projects']
-        });
-    }
-
-    // ------------------- Relacionamento com Tarefas --------------------------
-    // Para listar o relacionamento MANY TO MANY com Tarefa
-    async listUsersWithTasks(): Promise<User[]> {
-        return await this.repository.find({
-            relations: ["tasks"],
-        });
-    }
-
-    // Buscar um usuario pelo ID com as tarefas relacionadas
-    async findByIdWithTasks(id: number): Promise<User | null> {
-        return await this.repository.findOne({
-            where: { id: id },
-            relations: ['tasks']
-        });
-    }
 }

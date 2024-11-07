@@ -1,7 +1,6 @@
 import { Repository } from 'typeorm';
 import { banco } from '../../banco';
 import { Project } from '../entity/Project';
-import { User } from '../entity/User';
 
 export class ProjectRepository {
     private repository: Repository<Project>;
@@ -32,5 +31,13 @@ export class ProjectRepository {
 
     async delete(project: Project): Promise<Project> {
         return await this.repository.remove(project);
+    }
+
+    // ------------------- Relacionamento com Tarefas --------------------------
+    async findProjectWithTasks(id: number): Promise<Project | null> {
+        return await this.repository.findOne({
+            where: { id: id },
+            relations: ['tasks']
+        });
     }
 }

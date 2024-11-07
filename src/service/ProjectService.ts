@@ -48,7 +48,7 @@ export class ProjectService {
     // Método para verificar a regra de negócio:
     // -> um projeto só pode ser finalizado se possuir TODAS as suas tarefas vinculadas concluídas.
     async finalizeProject(projectId: number): Promise<boolean> {
-        const project = await this.projectRepository.findByIdWithTasks(projectId);
+        const project = await this.projectRepository.findProjectWithTasks(projectId);
 
         if (!project) {
             throw new Error("Projeto não encontrado.");

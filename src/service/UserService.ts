@@ -1,5 +1,3 @@
-import { Project } from "../entity/Project";
-import { Task } from "../entity/Task";
 import { User } from "../entity/User";
 import { UserRepository } from "../repository/UserRepository";
 
@@ -40,20 +38,5 @@ export class UserService {
             throw new Error(`Usuário com ID ${id} não encontrado.`);
         }
         return user;
-    }
-    
-
-    // ------------------- Relacionamento com Projetos --------------------------
-    // Para listar o relacionamento MANY TO MANY com Projeto
-    async listUserProjects(userId: number): Promise<Project[]> {
-        const user = await this.userRepository.findByIdWithProjects(userId);
-        return user ? user.projects : [];
-    }
-
-    // ------------------- Relacionamento com Tarefas --------------------------
-    // Para listar o relacionamento MANY TO MANY com Tarefa
-    async listUserTasks(userId: number): Promise<Task[]> {
-        const user = await this.userRepository.findByIdWithTasks(userId);
-        return user ? user.tasks : [];
     }
 }
