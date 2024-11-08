@@ -24,7 +24,7 @@ export class Project implements ITimestamp, IBase {
     @Column({ type: 'boolean', default: false, name: 'is_completed' })
     public isCompleted: boolean;
 
-    @ManyToMany(() => User, (user) => user.projects, { eager: true })
+    @ManyToMany(() => User, (user) => user.projects)
     public users: User[];
 
     @OneToMany(() => Task, (task) => task.project)

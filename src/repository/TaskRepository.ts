@@ -17,8 +17,11 @@ export class TaskRepository {
         return await this.repository.find();
     }
 
-    async findById(id: number): Promise<Task> {
-        return await this.repository.findOneBy({id: id});
+    async findById(id: number): Promise<Task | null> {
+        return await this.repository.findOne({
+            where: { id: id },
+            relations: ['users', 'project'],
+        });
     }
 
     async find(task: Partial<Task>): Promise<Task | null> {
@@ -31,37 +34,5 @@ export class TaskRepository {
 
     async delete(task: Task): Promise<Task> {
         return await this.repository.remove(task);
-    }
-
-    
-    // -------------------- Relacionamento com o Projeto ---------------------------------
-    // Para listar o relacionamento MANY TO ONE com Projeto
-    async listTasksWithProject(): Promise<Task[]> {
-        return await this.repository.find({
-            relations: ["project"],
-        });
-    }
-
-    async findByIdWithProject(id: number): Promise<Task | null> {
-        return await this.repository.findOne({
-            where: { id: id },
-            relations: ['project']
-        });
-    }
-
-    // -------------------- Relacionamento com o Usuários ---------------------------------
-    // Para listar o relacionamento MANY TO MANY com Usuario
-    async listTasksWithUsers(): Promise<Task[]> {
-        return await this.repository.find({
-            relations: ["users"],
-        });
-    }
-
-    // Buscar uma tarefa pelo ID com os usuários relacionados
-    async findByIdWithUsers(id: number): Promise<Task | null> {
-        return await this.repository.findOne({
-            where: { id: id },
-            relations: ['users']
-        });
     }
 }

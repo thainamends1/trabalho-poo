@@ -17,8 +17,11 @@ export class ProjectRepository {
         return await this.repository.find();
     }
 
-    async findById(id: number): Promise<Project> {
-        return await this.repository.findOneBy({id: id});
+    async findById(id: number): Promise<Project | null> {
+        return await this.repository.findOne({
+            where: { id: id },
+            relations: ['users', 'tasks'],
+        });
     }
 
     async find(project: Partial<Project>): Promise<Project | null> {
@@ -33,25 +36,11 @@ export class ProjectRepository {
         return await this.repository.remove(project);
     }
 
-    // ------------------- Relacionamento com Tarefas --------------------------
-    async findProjectWithTasks(projectId: number): Promise<Project | null> {
-        return await this.repository.findOne({
-            where: { id: projectId },
-            relations: ['tasks'], // Carrega as tarefas do projeto
-        });
-    }
-
-    // async findProjectWithUsersAndTasks(projectId: number): Promise<Project | null> {
-    //     return await this.repository.findOne({
-    //         where: { id: projectId },
-    //         relations: ['users'],  // Carregar apenas usuários, sem suas tarefas
-    //     });
-    // }
-
+    // Método para buscar usuários e suas tarefas atribuídas
     async findProjectWithUsersAndTasks(projectId: number): Promise<Project | null> {
         return await this.repository.findOne({
             where: { id: projectId },
-            relations: ['users', 'users.tasks'],  // Carregar usuários e as tarefas atribuídas a eles
+            relations: ['users', 'users.tasks'],
         });
     }
 }

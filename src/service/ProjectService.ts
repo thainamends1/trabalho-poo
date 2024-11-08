@@ -63,7 +63,7 @@ export class ProjectService {
             throw new Error("Erro ao finalizar projeto: todas as tarefas atribuídas aos usuários precisam estar completas.");
         }
     
-        // Se todas as tarefas estiverem completas, marca o projeto como concluído
+        // Se todas as tarefas estiverem concluídas, então, deixa finalizar o projeto
         project.isCompleted = true;
         await this.projectRepository.save(project);
         

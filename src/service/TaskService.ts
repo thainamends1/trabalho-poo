@@ -42,11 +42,4 @@ export class TaskService {
         }
         return task;
     }
-
-        // -------------------- Relacionamento com o Projeto ---------------------------------
-    // Para listar o relacionamento MANY TO ONE com Projeto
-    async listTasksByProject(projectId: number): Promise<Task[]> {
-        const project = await this.projectRepository.findProjectWithTasks(projectId);
-        return project ? project.tasks : [];
-    }
 }
