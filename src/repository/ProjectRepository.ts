@@ -1,6 +1,7 @@
 import { Repository } from 'typeorm';
 import { banco } from '../../banco';
 import { Project } from '../entity/Project';
+import { User } from '../entity/User';
 
 export class ProjectRepository {
     private repository: Repository<Project>;
