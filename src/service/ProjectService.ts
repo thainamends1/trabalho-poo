@@ -5,11 +5,9 @@ import { UserRepository } from "../repository/UserRepository";
 export class ProjectService {
 
     private projectRepository: ProjectRepository;
-    private userRepository: UserRepository
 
     constructor() {
         this.projectRepository = new ProjectRepository();
-        this.userRepository = new UserRepository();
     }
 
     //  Lista todos os projetos
