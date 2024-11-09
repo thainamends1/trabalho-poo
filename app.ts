@@ -1,3 +1,14 @@
+/*-------------------------------------------------------------------------------
+
+    Universidade Federal de Mato Grosso.
+    Trabalho: Trabalho Final - API.
+    Disciplina: Programação Orientada a Objetos.
+    Professor: Dr. Renan Vinicius Aranha.
+    Aluna: Thainã de Moraes Mendes.                   (RGA: 201911901027)
+    Aluno: Valdenir de Oliveira dos Santos Junior.    (RGA: 201911901029)
+    
+---------------------------------------------------------------------------------*/
+
 import "reflect-metadata";
 import express from 'express';
 import { banco } from "./banco"
