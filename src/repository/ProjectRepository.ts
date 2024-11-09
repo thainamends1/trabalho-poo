@@ -36,11 +36,18 @@ export class ProjectRepository {
         return await this.repository.remove(project);
     }
 
-    // Método para buscar usuários e suas tarefas atribuídas
+    // Busca os usuários e suas tarefas atribuídas
     async findProjectWithUsersAndTasks(projectId: number): Promise<Project | null> {
         return await this.repository.findOne({
             where: { id: projectId },
             relations: ['users', 'users.tasks'],
+        });
+    }
+
+    async findByIdWithTasks(projectId: number): Promise<Project | null> {
+        return await this.repository.findOne({
+            where: { id: projectId },
+            relations: ['tasks'] // Garante que as tarefas do projeto são carregadas
         });
     }
 }
