@@ -70,8 +70,7 @@ export class ProjectController {
     }
 
     // Método para verificar a regra de negócio:
-    // -> um projeto só pode ser finalizado se todos os usuários que estiverem nele
-    // possuir TODAS as suas tarefas vinculadas concluídas.
+    // -> um projeto só pode ser finalizado se TODAS as suas tarefas vinculadas estiverem concluídas.
     async finalizeProject(req: Request, res: Response): Promise<Response> {
         try {
             const projectId = parseInt(req.params.id);

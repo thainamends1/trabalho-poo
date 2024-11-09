@@ -48,31 +48,6 @@ export class ProjectService {
         return project;
     }
 
-    // // Método para verificar a regra de negócio:
-    // // -> um projeto só pode ser finalizado se possuir TODAS as suas tarefas vinculadas concluídas.
-    // async finalizeProject(projectId: number): Promise<boolean> {
-    //     const project = await this.projectRepository.findProjectWithUsersAndTasks(projectId);
-    
-    //     if (!project) {
-    //         throw new Error("Projeto não encontrado.");
-    //     }
-    
-    //     // Verificar se todas as tarefas dos usuários do projeto estão completas
-    //     const allTasksComplete = project.users.every(user => 
-    //         user.tasks.every(task => task.isCompleted) // Verifica todas as tarefas de cada usuário
-    //     );
-    
-    //     if (!allTasksComplete) {
-    //         throw new Error("Erro ao finalizar projeto: todas as tarefas atribuídas aos usuários precisam estar completas.");
-    //     }
-    
-    //     // Se todas as tarefas estiverem concluídas, então, deixa finalizar o projeto
-    //     project.isCompleted = true;
-    //     await this.projectRepository.save(project);
-        
-    //     return true;
-    // }
-
     async finalizeProject(projectId: number): Promise<boolean> {
         // Carregar o projeto com suas tarefas associadas
         const project = await this.projectRepository.findByIdWithTasks(projectId);
