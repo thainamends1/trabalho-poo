@@ -1,15 +1,11 @@
 import { Task } from "../entity/Task";
-import { ProjectRepository } from "../repository/ProjectRepository";
 import { TaskRepository } from "../repository/TaskRepository";
 
 export class TaskService {
 
     private taskRepository: TaskRepository;
-    private projectRepository: ProjectRepository;
-
     constructor() {
         this.taskRepository = new TaskRepository();
-        this.projectRepository = new ProjectRepository();
     }
 
     async create(task: Task): Promise<Task> {
