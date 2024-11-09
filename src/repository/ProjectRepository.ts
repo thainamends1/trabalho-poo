@@ -36,14 +36,6 @@ export class ProjectRepository {
         return await this.repository.remove(project);
     }
 
-    // // Busca os usuários e suas tarefas atribuídas
-    // async findProjectWithUsersAndTasks(projectId: number): Promise<Project | null> {
-    //     return await this.repository.findOne({
-    //         where: { id: projectId },
-    //         relations: ['users', 'users.tasks'],
-    //     });
-    // }
-
     async findByIdWithTasks(projectId: number): Promise<Project | null> {
         return await this.repository.findOne({
             where: { id: projectId },

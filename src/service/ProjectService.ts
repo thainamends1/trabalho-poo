@@ -47,21 +47,21 @@ export class ProjectService {
     }
 
     async finalizeProject(projectId: number): Promise<boolean> {
-        // Carregar o projeto com suas tarefas associadas
+        // Carrega as relações com as tarefas associadas
         const project = await this.projectRepository.findByIdWithTasks(projectId);
     
         if (!project) {
             throw new Error("Projeto não encontrado.");
         }
     
-        // Verificar se todas as tarefas do projeto estão completas
+        // Verifica se todas as tarefas do projeto estão TRUE (concluídas)
         const allTasksComplete = project.tasks.every(task => task.isCompleted);
     
         if (!allTasksComplete) {
             throw new Error("Erro ao finalizar projeto: todas as tarefas precisam estar completas.");
         }
     
-        // Se todas as tarefas estiverem concluídas, marca o projeto como finalizado
+        // Se todas as tarefas estiverem concluídas, deixa o programa ser finalizado (isCompleted = TRUE)
         project.isCompleted = true;
         await this.projectRepository.save(project);
     
